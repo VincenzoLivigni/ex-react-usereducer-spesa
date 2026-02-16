@@ -15,7 +15,7 @@ function App() {
         products.map((product, i) => (
           <li key={i}>
             <strong>Prodotto:</strong> <span>{product.name}</span> <br />
-            <strong>Prezzo:</strong> <span>{product.price}€</span> <br />
+            <strong>Prezzo:</strong> <span>{product.price.toFixed(2)} €</span> <br />
             <button onClick={() => addToCart(product)}>Aggiungi al carrello</button>
           </li>
         ))
@@ -39,16 +39,17 @@ function App() {
   }
 
 
-  function updateProductQuantity(product) {
+  function updateProductQuantity(product, updatedQuantity) {
     setAddedProducts(curr =>
       curr.map((p) => p.name === product.name
-        ? { ...p, quantity: p.quantity + 1 }
+        ? { ...p, quantity: updatedQuantity < 1 ? 1 : Math.trunc(Number(updatedQuantity)) }
         : p
       )
     )
   }
 
   function removeFromCart(i) {
+
     setAddedProducts(curr =>
       curr.filter((p, index) => index !== i)
     )
@@ -77,7 +78,13 @@ function App() {
                   <li key={i}>
                     <strong>Prodotto:</strong> <span>{product.name}</span> <br />
                     <strong>Prezzo:</strong> <span>{product.price.toFixed(2)} €</span> <br />
-                    <strong>Quantità:</strong> <span>{product.quantity}</span> <br />
+                    <strong>Quantità:</strong>
+                    <input
+                      type="number"
+                      value={product.quantity}
+                      onChange={(e) => updateProductQuantity(product, e.target.value)}
+                    />
+                    <br />
                     <button onClick={() => removeFromCart(i)}>Rimuovi dal carrello</button>
                   </li>
                 ))

@@ -5,3 +5,8 @@ li {
 button {
     margin-top: 0.35rem;
 }
+
+input {
+    width: 4%;
+    margin-left: 0.6rem;
+}

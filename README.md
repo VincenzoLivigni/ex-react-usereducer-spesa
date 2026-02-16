@@ -48,3 +48,17 @@ Milestone 3: Modificare il carrello
        ✔️ - Calcola il totale moltiplicando il prezzo per la quantità di ogni prodotto e somma tutti i risultati.
 
 ✅ Obiettivo: Gestire l’aggiunta, la rimozione e il calcolo del totale del carrello in modo dinamico.
+
+
+
+Bonus 1: Modifica dinamica delle quantità
+
+✔️ - 1 Al posto di mostrare solo il numero quantity, usa un input di tipo number:
+        ✔️ - Quando l’utente modifica il valore dell’input, usa la funzione updateProductQuantity per aggiornare la quantità del
+             prodotto.
+
+✅ - 2 Migliora la funzione updateProductQuantity per gestire:
+        ✔️ - Numeri decimali: Forza la quantità a essere un numero intero.
+        ✔️ - Valori inferiori a 1: Non permettere quantità negative o pari a zero.
+
+✅ Obiettivo: Consentire una modifica precisa e dinamica delle quantità direttamente nel carrello.
