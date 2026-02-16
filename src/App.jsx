@@ -29,11 +29,32 @@ function App() {
   function addToCart(product) {
     const productFound = addedProducts.find((p) => p.name === product.name)
 
-    !productFound ?
+    if (!productFound) {
       setAddedProducts(curr => {
         return [...curr, { ...product, quantity: 1 }]
-      }) : ""
+      })
+    } else if (productFound) {
+      updateProductQuantity(product)
+    }
   }
+
+
+  function updateProductQuantity(product) {
+    setAddedProducts(curr =>
+      curr.map((p) => p.name === product.name
+        ? { ...p, quantity: p.quantity + 1 }
+        : p
+      )
+    )
+  }
+
+  function removeFromCart(i) {
+    setAddedProducts(curr =>
+      curr.filter((p, index) => index !== i)
+    )
+  }
+
+  const sum = addedProducts.reduce((acc, p) => acc + (p.price * p.quantity), 0)
 
 
   return (
@@ -55,8 +76,9 @@ function App() {
                 addedProducts.map((product, i) => (
                   <li key={i}>
                     <strong>Prodotto:</strong> <span>{product.name}</span> <br />
-                    <strong>Prezzo:</strong> <span>{product.price}€</span> <br />
-                    <strong>Quantità:</strong> <span>{product.quantity}</span>
+                    <strong>Prezzo:</strong> <span>{product.price.toFixed(2)} €</span> <br />
+                    <strong>Quantità:</strong> <span>{product.quantity}</span> <br />
+                    <button onClick={() => removeFromCart(i)}>Rimuovi dal carrello</button>
                   </li>
                 ))
               }
@@ -64,6 +86,11 @@ function App() {
           </div>
           :
           <h4>Il carrello è vuoto</h4>
+        }
+
+        {addedProducts.length ?
+          <h4>Totale carrello: {sum.toFixed(2)} € 💰</h4>
+          : ""
         }
       </div>
     </>
